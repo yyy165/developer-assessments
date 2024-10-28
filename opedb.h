@@ -26,7 +26,7 @@ public:
     void createTable(); // 建表
     ~opedb();
     void insertDev(int ID, QString username, QString nation, double nation_confidence, int talent_rank, QString area);
-    void insertPro(int ID, QString name, int importance);
+    void insertPro(int ID, QString name, double importance);
     void insertCon(int developer_id, int project_id, double ratio);
     QVector<dev> select();
     dev selectByName(QString username);

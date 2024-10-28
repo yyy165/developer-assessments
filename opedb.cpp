@@ -50,7 +50,7 @@ void opedb::createTable()
     }
     create = "create table projects(ID integer primary key not null" // 项目id
              ", name varchar(255) not null" // 项目名称
-             ", importance integer)"; // 重要性
+             ", importance double)"; // 重要性
     qDebug() << create;
     if(query.exec(create))
     {
@@ -101,7 +101,7 @@ void opedb::insertDev(int ID, QString username, QString nation, double nation_co
     }
 }
 
-void opedb::insertPro(int ID, QString name, int importance)
+void opedb::insertPro(int ID, QString name, double importance)
 {
     QSqlQuery query;
     QString insert = QString("insert into projects (id, name, importance)"
