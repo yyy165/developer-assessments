@@ -31,6 +31,9 @@ public:
     QVector<dev> select();
     dev selectByName(QString username);
     QVector<dev> selectByNation(QString nation);
+    QVector<dev> selectByArea(QString area);
+    void updateArea(QString username, QString area);
+    void updateNation(QString username, QString nation);
 private:
     QSqlDatabase db;
 signals:

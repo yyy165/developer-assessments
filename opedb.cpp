@@ -16,7 +16,7 @@ opedb &opedb::getInstance()
 void opedb::init()
 {
     db.setHostName("localhost");
-    db.setDatabaseName("D:\\QT\\Project\\dev-assess\\devassess.db");
+    db.setDatabaseName("D:\\QT\\Project\\sqltry\\devassess.db");
     if(db.open())
     {
         qDebug() << "连接数据库成功" ;
@@ -168,7 +168,7 @@ dev opedb::selectByName(QString username)
     qDebug() << select;
     query.exec(select);
     dev* d = new dev();
-    if(query.next())
+    while(query.next())
     {
         d->ID = query.value(0).toInt();
         d->username = query.value(1).toString();
@@ -186,9 +186,9 @@ QVector<dev> opedb::selectByNation(QString nation)
 {
     QVector<dev> result;
     QSqlQuery query;
-    QString select = QString("select * from developers where nation = '%1'").arg(nation);
+    QString select = QString("select * from developers where nation like '%%1%'").arg(nation);
     query.exec(select);
-    if(query.next())
+    while(query.next())
     {
         dev* d = new dev();
         d->ID = query.value(0).toInt();
@@ -204,4 +204,60 @@ QVector<dev> opedb::selectByNation(QString nation)
         qDebug() << result[i].ID << result[i].username;
     }
     return result;
+}
+
+QVector<dev> opedb::selectByArea(QString area)
+{
+    QVector<dev> result;
+    QSqlQuery query;
+    QString select = QString("select * from developers where area like '%%1%' order by talent_rank DESC").arg(area);
+    qDebug() << select;
+    query.exec(select);
+    while(query.next())
+    {
+        dev* d = new dev();
+        d->ID = query.value(0).toInt();
+        d->username = query.value(1).toString();
+        d->nation = query.value(2).toString();
+        d->nation_confidence = query.value(3).toDouble();
+        d->talent_rank = query.value(4).toInt();
+        d->area = query.value(5).toString();
+        result.append(*d);
+    }
+    qDebug() << result.size();
+    for(int i = 0;i < result.size();i++)
+    {
+        qDebug() << result[i].ID << result[i].username << result[i].nation << result[i].talent_rank << result[i].area;
+    }
+    return result;
+}
+
+void opedb::updateArea(QString username, QString area)
+{
+    QSqlQuery query;
+    QString update = QString("update developers set area = '%1' where username = '%2'").arg(area).arg(username);
+    qDebug() << update;
+    if(query.exec(update))
+    {
+        qDebug() << "area更新成功";
+    }
+    else
+    {
+        qDebug() << "area更新失败";
+    }
+}
+
+void opedb::updateNation(QString username, QString nation)
+{
+    QSqlQuery query;
+    QString update = QString("update developers set nation = '%1' where username = '%2'").arg(nation).arg(username);
+    qDebug() << update;
+    if(query.exec(update))
+    {
+        qDebug() << "nation更新成功";
+    }
+    else
+    {
+        qDebug() << "nation更新失败";
+    }
 }
