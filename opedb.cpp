@@ -16,7 +16,7 @@ opedb &opedb::getInstance()
 void opedb::init()
 {
     db.setHostName("localhost");
-    db.setDatabaseName("D:\\QT\\Project\\sqltry\\devassess.db");
+    db.setDatabaseName("D:\\QT\\Project\\dev-assess\\devassess.db");
     if(db.open())
     {
         qDebug() << "连接数据库成功" ;
@@ -230,34 +230,4 @@ QVector<dev> opedb::selectByArea(QString area)
         qDebug() << result[i].ID << result[i].username << result[i].nation << result[i].talent_rank << result[i].area;
     }
     return result;
-}
-
-void opedb::updateArea(QString username, QString area)
-{
-    QSqlQuery query;
-    QString update = QString("update developers set area = '%1' where username = '%2'").arg(area).arg(username);
-    qDebug() << update;
-    if(query.exec(update))
-    {
-        qDebug() << "area更新成功";
-    }
-    else
-    {
-        qDebug() << "area更新失败";
-    }
-}
-
-void opedb::updateNation(QString username, QString nation)
-{
-    QSqlQuery query;
-    QString update = QString("update developers set nation = '%1' where username = '%2'").arg(nation).arg(username);
-    qDebug() << update;
-    if(query.exec(update))
-    {
-        qDebug() << "nation更新成功";
-    }
-    else
-    {
-        qDebug() << "nation更新失败";
-    }
 }

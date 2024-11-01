@@ -12,8 +12,6 @@
 #include <QJsonArray>
 #include <QDebug>
 #include <opedb.h>
-#include <unordered_set>
-#include <unordered_map>
 #include <QMessageBox>
 
 class getinfo : public QObject
@@ -25,14 +23,11 @@ public:
     static getinfo& getinstance();
     void getPro(QString username);
     void getCon(QString username, int project_id, QString name);
-    QString getNation(QString username);
     void location(QString followname);
 
 signals:
 
 private:
-    std::unordered_set<QString> area_set;
-    std::unordered_map<QString, int> locHash;
 
 };
 
