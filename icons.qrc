@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>imgs/search.jfif</file>
+        <file>imgs/searchpre.jfif</file>
+    </qresource>
+</RCC>

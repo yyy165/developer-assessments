@@ -12,17 +12,23 @@ SOURCES += \
     getinfo.cpp \
     main.cpp \
     home.cpp \
-    opedb.cpp
+    opedb.cpp \
+    selectpage.cpp
 
 HEADERS += \
     getinfo.h \
     home.h \
-    opedb.h
+    opedb.h \
+    selectpage.h
 
 FORMS += \
-    home.ui
+    home.ui \
+    selectpage.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    icons.qrc
