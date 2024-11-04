@@ -29,7 +29,9 @@ private slots:
 
     void on_selectAreaBT_clicked();
 
-    void receiveInfo(const QString &name);
+    void receiveNameInfo(const QString &name);
+    void receiveNationInfo(const QString &nation);
+    void receiveAreaInfo(const QString &area);
 
 private:
     Ui::home *ui;

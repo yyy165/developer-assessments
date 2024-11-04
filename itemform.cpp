@@ -6,6 +6,7 @@ itemform::itemform(QWidget *parent)
     , ui(new Ui::itemform)
 {
     ui->setupUi(this);
+    ui->areaLB->setWordWrap(true);
 }
 
 itemform::~itemform()

@@ -140,7 +140,7 @@ QVector<dev> opedb::select()
 {
     QVector<dev> result;
     QSqlQuery query;
-    QString select = "select * from developers";
+    QString select = "select * from developers order by talent_rank DESC";
     query.exec(select);
     while(query.next())
     {
@@ -188,7 +188,7 @@ QVector<dev> opedb::selectByNation(QString nation)
 {
     QVector<dev> result;
     QSqlQuery query;
-    QString select = QString("select * from developers where nation like '%%1%'").arg(nation);
+    QString select = QString("select * from developers where nation like '%%1%' order by talent_rank DESC").arg(nation);
     query.exec(select);
     while(query.next())
     {

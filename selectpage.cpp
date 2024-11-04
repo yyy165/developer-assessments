@@ -24,7 +24,8 @@ void selectPage::on_clearBt_clicked()
 void selectPage::on_selectBt_clicked()
 {
     QString name = ui->selectEdit->text();
-    emit nameInfoReady(name);
+    emit infoReady(name);
     ui->selectEdit->clear();
+    this->close();
 }
 

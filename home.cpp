@@ -15,7 +15,7 @@ home::home(QWidget *parent)
         itemform* stuitem = new itemform;
         stuitem->setInfo(i + 1, info[i]);
         QListWidgetItem* item = new QListWidgetItem;
-        item->setSizeHint(QSize(720, 60));
+        item->setSizeHint(QSize(780, 60));
         ui->listWidget->addItem(item);
         ui->listWidget->setItemWidget(item, stuitem);
 
@@ -38,8 +38,8 @@ void home::on_selectNameBT_clicked()
     if(!sp)
     {
         sp = new selectPage(this);
-        connect(sp, &selectPage::nameInfoReady, this, &home::receiveInfo);
     }
+    connect(sp, &selectPage::infoReady, this, &home::receiveNameInfo);
     QRect rect = this->ui->selectNameBT->geometry();
     int x = rect.x();
     int y = rect.y();
@@ -53,8 +53,8 @@ void home::on_selectNationBT_clicked()
     if(!sp)
     {
         sp = new selectPage(this);
-        connect(sp, &selectPage::nameInfoReady, this, &home::receiveInfo);
     }
+    connect(sp, &selectPage::infoReady, this, &home::receiveNationInfo);
     QRect rect = this->ui->selectNationBT->geometry();
     int x = rect.x();
     int y = rect.y();
@@ -69,8 +69,8 @@ void home::on_selectAreaBT_clicked()
     if(!sp)
     {
         sp = new selectPage(this);
-        connect(sp, &selectPage::nameInfoReady, this, &home::receiveInfo);
     }
+    connect(sp, &selectPage::infoReady, this, &home::receiveAreaInfo);
     QRect rect = this->ui->selectAreaBT->geometry();
     int x = rect.x();
     int y = rect.y();
@@ -78,8 +78,59 @@ void home::on_selectAreaBT_clicked()
     sp->show();
 }
 
-void home::receiveInfo(const QString &name)
+void home::receiveNameInfo(const QString &name)
 {
     qDebug() << name;
+    QVector<dev> info;
+    if(name == "")
+    {
+        info = opedb::getInstance().select();
+    }
+    else
+    {
+        info = opedb::getInstance().selectByName(name);
+    }
+    ui->listWidget->clear();
+    for(int i = 0;i < info.size();i++)
+    {
+        itemform* stuitem = new itemform;
+        stuitem->setInfo(i + 1, info[i]);
+        QListWidgetItem* item = new QListWidgetItem;
+        item->setSizeHint(QSize(780, 60));
+        ui->listWidget->addItem(item);
+        ui->listWidget->setItemWidget(item, stuitem);
+    }
+}
+
+void home::receiveNationInfo(const QString &nation)
+{
+    qDebug() << nation;
+    QVector<dev> info = opedb::getInstance().selectByNation(nation);
+    ui->listWidget->clear();
+    for(int i = 0;i < info.size();i++)
+    {
+        itemform* stuitem = new itemform;
+        stuitem->setInfo(i + 1, info[i]);
+        QListWidgetItem* item = new QListWidgetItem;
+        item->setSizeHint(QSize(780, 60));
+        ui->listWidget->addItem(item);
+        ui->listWidget->setItemWidget(item, stuitem);
+    }
+}
+
+void home::receiveAreaInfo(const QString &area)
+{
+    qDebug() << area;
+    QVector<dev> info = opedb::getInstance().selectByArea(area);
+    ui->listWidget->clear();
+    for(int i = 0;i < info.size();i++)
+    {
+        itemform* stuitem = new itemform;
+        stuitem->setInfo(i + 1, info[i]);
+        QListWidgetItem* item = new QListWidgetItem;
+        item->setSizeHint(QSize(780, 60));
+        ui->listWidget->addItem(item);
+        ui->listWidget->setItemWidget(item, stuitem);
+    }
 }
 

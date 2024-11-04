@@ -16,7 +16,7 @@ public:
     ~selectPage();
 
 signals:
-    void nameInfoReady(const QString &name);
+    void infoReady(const QString &info);
 
 private slots:
     void on_clearBt_clicked();
