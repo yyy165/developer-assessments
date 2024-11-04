@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <selectpage.h>
+#include <opedb.h>
+#include <itemform.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -26,6 +28,8 @@ private slots:
     void on_selectNationBT_clicked();
 
     void on_selectAreaBT_clicked();
+
+    void receiveInfo(const QString &name);
 
 private:
     Ui::home *ui;

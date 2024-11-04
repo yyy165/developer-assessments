@@ -4,10 +4,22 @@
 home::home(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::home)
+    , sp(nullptr)
 {
     ui->setupUi(this);
 
     setWindowFlag(Qt::FramelessWindowHint);
+    QVector<dev> info = opedb::getInstance().select();
+    for(int i = 0;i < info.size();i++)
+    {
+        itemform* stuitem = new itemform;
+        stuitem->setInfo(i + 1, info[i]);
+        QListWidgetItem* item = new QListWidgetItem;
+        item->setSizeHint(QSize(720, 60));
+        ui->listWidget->addItem(item);
+        ui->listWidget->setItemWidget(item, stuitem);
+
+    }
 }
 
 home::~home()
@@ -17,49 +29,57 @@ home::~home()
 
 void home::on_closeBT_clicked()
 {
-    sp->close();
     this->close();
 }
 
 
 void home::on_selectNameBT_clicked()
 {
-    sp->close();
-    QRect rect = this->geometry();
+    if(!sp)
+    {
+        sp = new selectPage(this);
+        connect(sp, &selectPage::nameInfoReady, this, &home::receiveInfo);
+    }
+    QRect rect = this->ui->selectNameBT->geometry();
     int x = rect.x();
     int y = rect.y();
-    rect = this->ui->selectNameBT->geometry();
-    x += rect.x();
-    y += rect.y();
-    sp->setGeometry(x - 220,y + 20,255,100);
+    sp->setGeometry(x - 200,y + 20,255,100);
     sp->show();
 }
 
 
 void home::on_selectNationBT_clicked()
 {
-    sp->close();
-    QRect rect = this->geometry();
+    if(!sp)
+    {
+        sp = new selectPage(this);
+        connect(sp, &selectPage::nameInfoReady, this, &home::receiveInfo);
+    }
+    QRect rect = this->ui->selectNationBT->geometry();
     int x = rect.x();
     int y = rect.y();
-    rect = this->ui->selectNationBT->geometry();
-    x += rect.x();
-    y += rect.y();
-    sp->setGeometry(x - 220,y + 20,255,100);
+    sp->setGeometry(x - 200,y + 20,255,100);
     sp->show();
+
 }
 
 
 void home::on_selectAreaBT_clicked()
 {
-    sp->close();
-    QRect rect = this->geometry();
+    if(!sp)
+    {
+        sp = new selectPage(this);
+        connect(sp, &selectPage::nameInfoReady, this, &home::receiveInfo);
+    }
+    QRect rect = this->ui->selectAreaBT->geometry();
     int x = rect.x();
     int y = rect.y();
-    rect = this->ui->selectAreaBT->geometry();
-    x += rect.x();
-    y += rect.y();
-    sp->setGeometry(x - 220,y + 20,255,100);
+    sp->setGeometry(x - 200,y + 20,255,100);
     sp->show();
+}
+
+void home::receiveInfo(const QString &name)
+{
+    qDebug() << name;
 }
 

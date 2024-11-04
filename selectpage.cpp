@@ -16,6 +16,15 @@ selectPage::~selectPage()
 
 void selectPage::on_clearBt_clicked()
 {
+    ui->selectEdit->clear();
     this->close();
+}
+
+
+void selectPage::on_selectBt_clicked()
+{
+    QString name = ui->selectEdit->text();
+    emit nameInfoReady(name);
+    ui->selectEdit->clear();
 }
 

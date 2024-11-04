@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     getinfo.cpp \
+    itemform.cpp \
     main.cpp \
     home.cpp \
     opedb.cpp \
@@ -18,11 +19,13 @@ SOURCES += \
 HEADERS += \
     getinfo.h \
     home.h \
+    itemform.h \
     opedb.h \
     selectpage.h
 
 FORMS += \
     home.ui \
+    itemform.ui \
     selectpage.ui
 
 # Default rules for deployment.

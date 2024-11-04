@@ -29,7 +29,7 @@ public:
     void insertPro(int ID, QString name, double importance);
     void insertCon(int developer_id, int project_id, double ratio);
     QVector<dev> select();
-    dev selectByName(QString username);
+    QVector<dev> selectByName(QString username);
     QVector<dev> selectByNation(QString nation);
     QVector<dev> selectByArea(QString area);
 private:

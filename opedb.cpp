@@ -142,7 +142,7 @@ QVector<dev> opedb::select()
     QSqlQuery query;
     QString select = "select * from developers";
     query.exec(select);
-    if(query.next())
+    while(query.next())
     {
         dev* d = new dev();
         d->ID = query.value(0).toInt();
@@ -161,15 +161,16 @@ QVector<dev> opedb::select()
 }
 
 // 按用户名搜索
-dev opedb::selectByName(QString username)
+QVector<dev> opedb::selectByName(QString username)
 {
+    QVector<dev> result;
     QSqlQuery query;
     QString select = QString("select * from developers where username = '%1'").arg(username);
     qDebug() << select;
     query.exec(select);
-    dev* d = new dev();
     while(query.next())
     {
+        dev* d = new dev();
         d->ID = query.value(0).toInt();
         d->username = query.value(1).toString();
         d->nation = query.value(2).toString();
@@ -177,9 +178,10 @@ dev opedb::selectByName(QString username)
         d->talent_rank = query.value(4).toInt();
         d->area = query.value(5).toString();
         qDebug() << d->ID << d->username;
+        result.append(*d);
     }
 
-    return *d;
+    return result;
 }
 
 QVector<dev> opedb::selectByNation(QString nation)

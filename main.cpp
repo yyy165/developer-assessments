@@ -8,10 +8,10 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     opedb::getInstance().init();
-    getinfo::getinstance().getDev("yyy165");
+    //getinfo::getinstance().getDev("521xueweihan");
 
 
     home w;
-    //w.show();
+    w.show();
     return a.exec();
 }
