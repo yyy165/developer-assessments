@@ -19,11 +19,11 @@ void opedb::init()
     db.setDatabaseName("D:\\QT\\Project\\dev-assess\\devassess.db");
     if(db.open())
     {
-        qDebug() << "连接数据库成功" ;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << "连接数据库成功" ;
     }
     else
     {
-        qDebug() << "连接数据库失败" ;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << "连接数据库失败" ;
     }
     QSqlQuery query;
     query.exec("PRAGMA foreign_keys = ON"); // 开启外键约束
@@ -39,26 +39,26 @@ void opedb::createTable()
                      ", nation_confidence double" // 地区置信度
                      ", talent_rank integer" // 评分
                      ", area varchar(255))"; // 领域
-    qDebug() << create;
+    qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << create;
     if(query.exec(create))
     {
-        qDebug() << "成功建立developers" ;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << "成功建立developers" ;
     }
     else
     {
-        qDebug() << "建立developers失败" ;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << "建立developers失败" ;
     }
     create = "create table projects(ID integer primary key not null" // 项目id
              ", name varchar(255) not null" // 项目名称
              ", importance double)"; // 重要性
-    qDebug() << create;
+    qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << create;
     if(query.exec(create))
     {
-        qDebug() << "成功建立projects" ;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << "成功建立projects" ;
     }
     else
     {
-        qDebug() << "建立projects失败" ;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << "建立projects失败" ;
     }
     create = "create table contributions(ID integer primary key not null" // 项目贡献度id
              ", developer_id integer not null" // 项目参与者id
@@ -66,14 +66,14 @@ void opedb::createTable()
              ", ratio double" // 贡献度
              ", foreign key(developer_id) references developers(ID)"
              ", foreign key(project_id) references projects(ID))";
-    qDebug() << create;
+    qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << create;
     if(query.exec(create))
     {
-        qDebug() << "成功建立contributions" ;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << "成功建立contributions" ;
     }
     else
     {
-        qDebug() << "建立contributions失败" ;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << "建立contributions失败" ;
     }
 }
 
@@ -90,14 +90,14 @@ void opedb::insertDev(int ID, QString username, QString nation, double nation_co
     QString insert = QString("insert into developers (id, username, nation, nation_confidence, talent_rank, area)"
                              " values (%1, '%2', '%3', %4, %5, '%6')").arg(ID).arg(username).arg(nation).arg(nation_confidence).arg(talent_rank).arg(area);
 
-    qDebug() << insert;
+    qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << insert;
     if(query.exec(insert))
     {
-        qDebug() << "插入developers成功" ;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << "插入developers成功" ;
     }
     else
     {
-        qDebug() << "插入developers失败" ;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << "插入developers失败" ;
     }
 }
 
@@ -107,14 +107,14 @@ void opedb::insertPro(int ID, QString name, double importance)
     QString insert = QString("insert into projects (id, name, importance)"
                              " values (%1, '%2', %3)").arg(ID).arg(name).arg(importance);
 
-    qDebug() << insert;
+    qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << insert;
     if(query.exec(insert))
     {
-        qDebug() << "插入projects成功" ;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << "插入projects成功" ;
     }
     else
     {
-        qDebug() << "插入projects失败" ;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << "插入projects失败" ;
     }
 }
 
@@ -124,14 +124,14 @@ void opedb::insertCon(int developer_id, int project_id, double ratio)
     QString insert = QString("insert into contributions (developer_id, project_id, ratio)"
                              " values (%1, %2, %3)").arg(developer_id).arg(project_id).arg(ratio);
 
-    qDebug() << insert;
+    qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << insert;
     if(query.exec(insert))
     {
-        qDebug() << "插入contributions成功" ;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << "插入contributions成功" ;
     }
     else
     {
-        qDebug() << "插入contributions失败" ;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << "插入contributions失败" ;
     }
 }
 
@@ -155,7 +155,7 @@ QVector<dev> opedb::select()
     }
     for(int i = 0;i < result.size();i++)
     {
-        qDebug() << result[i].ID << result[i].username;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << result[i].ID << result[i].username;
     }
     return result;
 }
@@ -166,7 +166,7 @@ QVector<dev> opedb::selectByName(QString username)
     QVector<dev> result;
     QSqlQuery query;
     QString select = QString("select * from developers where username = '%1'").arg(username);
-    qDebug() << select;
+    qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << select;
     query.exec(select);
     while(query.next())
     {
@@ -177,7 +177,7 @@ QVector<dev> opedb::selectByName(QString username)
         d->nation_confidence = query.value(3).toDouble();
         d->talent_rank = query.value(4).toInt();
         d->area = query.value(5).toString();
-        qDebug() << d->ID << d->username;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << d->ID << d->username;
         result.append(*d);
     }
 
@@ -203,7 +203,7 @@ QVector<dev> opedb::selectByNation(QString nation)
     }
     for(int i = 0;i < result.size();i++)
     {
-        qDebug() << result[i].ID << result[i].username;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << result[i].ID << result[i].username;
     }
     return result;
 }
@@ -213,7 +213,7 @@ QVector<dev> opedb::selectByArea(QString area)
     QVector<dev> result;
     QSqlQuery query;
     QString select = QString("select * from developers where area like '%%1%' order by talent_rank DESC").arg(area);
-    qDebug() << select;
+    qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << select;
     query.exec(select);
     while(query.next())
     {
@@ -226,10 +226,10 @@ QVector<dev> opedb::selectByArea(QString area)
         d->area = query.value(5).toString();
         result.append(*d);
     }
-    qDebug() << result.size();
+    qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << result.size();
     for(int i = 0;i < result.size();i++)
     {
-        qDebug() << result[i].ID << result[i].username << result[i].nation << result[i].talent_rank << result[i].area;
+        qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << result[i].ID << result[i].username << result[i].nation << result[i].talent_rank << result[i].area;
     }
     return result;
 }

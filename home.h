@@ -5,6 +5,7 @@
 #include <selectpage.h>
 #include <opedb.h>
 #include <itemform.h>
+#include <getinfo.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

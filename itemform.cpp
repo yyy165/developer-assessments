@@ -19,7 +19,14 @@ void itemform::setInfo(int id, dev info)
     ui->IDLB->setText(QString::number(id));
     ui->nameLB->setText(info.username);
     ui->nationLB->setText(info.nation);
-    ui->confidenceLB->setText(QString::number(info.nation_confidence));
+    if(info.nation_confidence == 0)
+    {
+        ui->confidenceLB->setText("N/A");
+    }
+    else
+    {
+        ui->confidenceLB->setText(QString::number(info.nation_confidence));
+    }
     ui->scoreLB->setText(QString::number(info.talent_rank));
     ui->areaLB->setText(info.area);
 }

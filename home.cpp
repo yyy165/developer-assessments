@@ -18,7 +18,6 @@ home::home(QWidget *parent)
         item->setSizeHint(QSize(780, 60));
         ui->listWidget->addItem(item);
         ui->listWidget->setItemWidget(item, stuitem);
-
     }
 }
 
@@ -80,7 +79,7 @@ void home::on_selectAreaBT_clicked()
 
 void home::receiveNameInfo(const QString &name)
 {
-    qDebug() << name;
+    qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << name;
     QVector<dev> info;
     if(name == "")
     {
@@ -89,6 +88,12 @@ void home::receiveNameInfo(const QString &name)
     else
     {
         info = opedb::getInstance().selectByName(name);
+        if(info.size() == 0)
+        {
+            qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << "数据库内没有该用户" ;
+            getinfo::getinstance().getDev(name);
+            info = opedb::getInstance().selectByName(name);
+        }
     }
     ui->listWidget->clear();
     for(int i = 0;i < info.size();i++)
@@ -104,7 +109,7 @@ void home::receiveNameInfo(const QString &name)
 
 void home::receiveNationInfo(const QString &nation)
 {
-    qDebug() << nation;
+    qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << nation;
     QVector<dev> info = opedb::getInstance().selectByNation(nation);
     ui->listWidget->clear();
     for(int i = 0;i < info.size();i++)
@@ -120,7 +125,7 @@ void home::receiveNationInfo(const QString &nation)
 
 void home::receiveAreaInfo(const QString &area)
 {
-    qDebug() << area;
+    qDebug() <<  __FILE__ <<  __LINE__ << Q_FUNC_INFO << ":" << area;
     QVector<dev> info = opedb::getInstance().selectByArea(area);
     ui->listWidget->clear();
     for(int i = 0;i < info.size();i++)
